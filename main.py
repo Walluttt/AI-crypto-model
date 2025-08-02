@@ -64,7 +64,7 @@ model.add(Dropout(0.2))
 model.add(LSTM(units=50, return_sequences=False))
 model.add(Dropout(0.2))
 model.add(Dense(units=1))  # Prédiction du prix de clôture
-
+model.compile(optimizer='adam', loss='mse', metrics=['mae'])
 # ---------- Entraînement ----------
 model.fit(X_train_seq, y_train_seq, epochs=20, batch_size=32)
 
@@ -79,8 +79,9 @@ import matplotlib.pyplot as plt
 plt.figure(figsize=(10,6))
 plt.plot(actual, label='Prix réel')
 plt.plot(predictions, label='Prix prédit')
-plt.title('Prédiction du prix de clôture BTC')
+plt.title('Prédiction du prix de clôture')
 plt.xlabel('Temps')
 plt.ylabel('Prix (USD)')
 plt.legend()
 plt.show()
+plt.savefig('prediction.png', dpi=300, bbox_inches='tight')
